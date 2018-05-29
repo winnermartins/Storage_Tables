@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ClienteIot
+namespace ClienteIotExercice
 {
     class Program
     {
@@ -36,7 +36,7 @@ namespace ClienteIot
         private static async Task Test(int i)
         {
             CancellationToken cancellationToken;
-            var actor = ActorProxy.Create<IActors>(new ActorId(i), new Uri("fabric:/IoT/ActorsActorService"));
+            var actor = ActorProxy.Create<IActors>(new ActorId(i), new Uri("fabric:/IotExercice/ActorsActorService"));
             await actor.SetCountAsync(i, cancellationToken);
             var bla = await actor.GetCountAsync(cancellationToken);
             Console.WriteLine(bla);

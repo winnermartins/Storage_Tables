@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace API
 {
-    [EventSource(Name = "MyCompany-API.IOT-API")]
+    [EventSource(Name = "MyCompany-API.IotExercice-API")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();

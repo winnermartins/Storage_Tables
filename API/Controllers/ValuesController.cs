@@ -24,7 +24,7 @@ namespace API.Controllers
         [HttpGet("{region}/{version}")]
         public async Task<string> GetAsync(string region, int version)
         {
-            var actor = ActorProxy.Create<IThing>(new ActorId(1), new Uri("fabric:/IoT/ThingActorService"));
+            var actor = ActorProxy.Create<IThing>(new ActorId(1), new Uri("fabric:/IotExercice/ThingActorService"));
             await actor.ActivateMeAsync(region, version);
             string versionString = Convert.ToString(version);
             return "Região: " + region + " - Versão: " + versionString;
@@ -35,7 +35,7 @@ namespace API.Controllers
         public async Task<IActionResult> Get(int id)
         {
             CancellationToken cancellationToken;
-            var actor = ActorProxy.Create<IActors>(new ActorId(1), new Uri("fabric:/IoT/ActorsActorService"));
+            var actor = ActorProxy.Create<IActors>(new ActorId(1), new Uri("fabric:/IotExercice/ActorsActorService"));
             await actor.SetCountAsync(10, cancellationToken);
             var bla = actor.GetCountAsync(cancellationToken).Result;
             return Ok(bla);
