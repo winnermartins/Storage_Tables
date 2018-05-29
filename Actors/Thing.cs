@@ -54,12 +54,12 @@ namespace Actors
                 Version = version
             };
 
-            /*var Device = new DeviceEntity(State._deviceInfo.DeviceId, State._deviceInfo.Region)
+            var Device = new DeviceEntity(State._deviceInfo.DeviceId, State._deviceInfo.Region)
             {
                 Version = State._deviceInfo.Version.ToString()
             };
             TableOperation insertOperation = TableOperation.InsertOrReplace(Device);
-            cloudTable.ExecuteAsync(insertOperation);*/
+            cloudTable.ExecuteAsync(insertOperation);
 
             // based on the info, assign a group... for demonstration we are assigning a random group
             State._deviceGroupId = region;
