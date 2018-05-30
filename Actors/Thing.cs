@@ -44,7 +44,7 @@ namespace Actors
             CloudTable cloudTable;
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
-            cloudTable = cloudTableClient.GetTableReference("Equipamentos");
+            cloudTable = cloudTableClient.GetTableReference("Devices");
             cloudTable.CreateIfNotExistsAsync();
 
             State._deviceInfo = new ThingInfo()

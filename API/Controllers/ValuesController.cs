@@ -30,17 +30,6 @@ namespace API.Controllers
             return "Região: " + region + " - Versão: " + versionString;
         }
         
-        // GET api/values/5
-        /*[HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            CancellationToken cancellationToken;
-            var actor = ActorProxy.Create<IActors>(new ActorId(1), new Uri("fabric:/IotExercice/ActorsActorService"));
-            await actor.SetCountAsync(10, cancellationToken);
-            var bla = actor.GetCountAsync(cancellationToken).Result;
-            return Ok(bla);
-        }*/
-
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
