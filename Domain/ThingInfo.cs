@@ -8,7 +8,10 @@ namespace Domain
     public class ThingInfo
     {
         public string DeviceId { get; set; }
-        public string Region { get; set; }
-        public int Version { get; set; }
+        public string Local { get; set; }
+        public string Temp { get; set; }
+        public string Umid { get; set; }
+        public string Corr { get; set; }
+        
     }
 }

@@ -7,12 +7,17 @@ namespace Domain
 {
     public class DeviceEntity : TableEntity
     {
-        public DeviceEntity(string id, string region)
+        public DeviceEntity(String PK, String RK)
         {
-            PartitionKey = id;
-            RowKey = region;
+            PartitionKey = PK; ;
+            RowKey = RK;
+
         }
 
-        public string Version { get; set; }
+        public string id { get; set; }
+        public string location { get; set; }
+        public string temperature { get; set; }
+        public string humidity { get; set; }
+        public string current { get; set; }
     }
 }

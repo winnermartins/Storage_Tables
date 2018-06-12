@@ -50,10 +50,10 @@ namespace Actors
                 State._faultsPerRegion[telemetry.Region]++;
                 State._faultyDevices.Add(State._devices.Where(d => d.DeviceId == telemetry.DeviceId).FirstOrDefault());
 
-                if (State._faultsPerRegion[telemetry.Region] > State._devices.Count(d => d.Region == telemetry.Region) / 3)
+                if (State._faultsPerRegion[telemetry.Region] > State._devices.Count(d => d.Local == telemetry.Region) / 3)
                 {
                     Console.WriteLine("Sending an engineer to repair/replace devices in {0}", telemetry.Region);
-                    foreach (var device in State._faultyDevices.Where(d => d.Region == telemetry.Region).ToList())
+                    foreach (var device in State._faultyDevices.Where(d => d.Local == telemetry.Region).ToList())
                     {
                         Console.WriteLine("\t{0}", device);
                     }

@@ -15,8 +15,9 @@ namespace Actors
     [StatePersistence(StatePersistence.Persisted)]
     public class Thing : Actor, IThing
     {
-        private readonly string storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=testewinner;AccountKey=mb2rGzqF3XmWpaUFIvL9XiXP925asJ0DgxV/fg0nf6pfh674WR6OgeZWwz1tXF0hssv3JG8FNy86YI7vjdNaIA==;EndpointSuffix=core.windows.net";
+        private readonly string storageConnectionString = ""; //Entre aqui a sua connection String
         private ThingState State = new ThingState();
+
         public Thing(ActorService actorService, ActorId actorId) : base(actorService, actorId)
         {
         }
@@ -39,32 +40,41 @@ namespace Actors
             return Task.FromResult(true);
         }
 
-        public Task ActivateMeAsync(string region, int version)
+        public Task ActivateMeAsync(string PK, string RK, string id, string location, string temperature, string humidity, string current)
         {
             CloudTable cloudTable;
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
-            cloudTable = cloudTableClient.GetTableReference("Devices");
+            cloudTable = cloudTableClient.GetTableReference("RefrigeratingChamber");
             cloudTable.CreateIfNotExistsAsync();
 
             State._deviceInfo = new ThingInfo()
             {
-                DeviceId = Guid.NewGuid().ToString(),
-                Region = region,
-                Version = version
+                DeviceId = id,
+                Local = location,
+                Temp = temperature,
+                Umid = humidity,
+                Corr = current,
             };
 
-            var Device = new DeviceEntity(State._deviceInfo.DeviceId, State._deviceInfo.Region)
+            var Device = new DeviceEntity(PK, RK)
             {
-                Version = State._deviceInfo.Version.ToString()
+                id = State._deviceInfo.DeviceId,
+                location = State._deviceInfo.Local,
+                temperature = State._deviceInfo.Temp,
+                humidity = State._deviceInfo.Umid,
+                current = State._deviceInfo.Corr,
             };
+
+            
+
             TableOperation insertOperation = TableOperation.InsertOrReplace(Device);
             cloudTable.ExecuteAsync(insertOperation);
 
             // based on the info, assign a group... for demonstration we are assigning a random group
-            State._deviceGroupId = region;
+            State._deviceGroupId = State._deviceInfo.Local;
 
-            var deviceGroup = ActorProxy.Create<IThingGroup>(new ActorId(region));
+            var deviceGroup = ActorProxy.Create<IThingGroup>(new ActorId(State._deviceInfo.Local));
             return deviceGroup.RegisterDevice(State._deviceInfo);
         }
     }

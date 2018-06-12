@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Actors.Interfaces\Actors.Interfaces.csproj" />
+    <ProjectReference Include="..\leJson\Dados.csproj" />
   </ItemGroup>
 
 </Project>
